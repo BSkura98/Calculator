@@ -9,8 +9,8 @@
     >
 
     <Button
-        android:id="@+id/btn_Clear"
-        android:text="C"
+        android:id="@+id/btn_Bksp"
+        android:text="Bksp"
         style="@style/FunctionalButtons"
         android:layout_column="0"
         android:layout_row="0"
@@ -21,8 +21,8 @@
         />
 
     <Button
-        android:id="@+id/btn_Percentage"
-        android:text="%"
+        android:id="@+id/btn_Clear"
+        android:text="C"
         style="@style/FunctionalButtons"
         android:layout_column="1"
         android:layout_row="0"
@@ -30,23 +30,13 @@
         android:layout_marginTop="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnSpan="2"
         />
 
     <Button
-        android:id="@+id/btn_Divide"
-        android:text="/"
-        style="@style/FunctionalButtons"
-        android:layout_column="2"
-        android:layout_row="0"
-        android:layout_columnWeight="1"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        />
-
-    <Button
-        android:id="@+id/btn_Multiply"
-        android:text="X"
+        android:id="@+id/btn_ChangeSign"
+        android:text="±"
         style="@style/FunctionalButtons"
         android:layout_column="3"
         android:layout_row="0"
@@ -95,8 +85,8 @@
         />
 
     <Button
-        android:id="@+id/btn_Minus"
-        android:text="-"
+        android:id="@+id/btn_Division"
+        android:text="/"
         style="@style/FunctionalButtons"
         android:layout_column="3"
         android:layout_row="1"
@@ -146,8 +136,8 @@
         />
 
     <Button
-        android:id="@+id/btn_Plus"
-        android:text="+"
+        android:id="@+id/btn_Multiply"
+        android:text="*"
         style="@style/FunctionalButtons"
         android:layout_column="3"
         android:layout_row="2"
@@ -197,26 +187,25 @@
         />
 
     <Button
-        android:id="@+id/btn_Equal"
-        android:text="="
-        style="@style/EqualButtons"
+        android:id="@+id/btn_Minus"
+        android:text="-"
+        style="@style/FunctionalButtons"
         android:layout_column="3"
         android:layout_row="3"
         android:layout_columnWeight="1"
         android:layout_marginTop="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
-        android:layout_gravity="fill_vertical"
-        android:layout_rowSpan="2"
         />
 
 
 
 
 
+
     <Button
-        android:id="@+id/btn_Dot"
-        android:text="."
+        android:id="@+id/btn_Zero"
+        android:text="0"
         style="@style/NumberButtons"
         android:layout_column="0"
         android:layout_row="4"
@@ -227,8 +216,8 @@
         />
 
     <Button
-        android:id="@+id/btn_Zero"
-        android:text="0"
+        android:id="@+id/btn_Dot"
+        android:text="."
         style="@style/NumberButtons"
         android:layout_column="1"
         android:layout_row="4"
@@ -239,10 +228,23 @@
         />
 
     <Button
-        android:id="@+id/btn_DoubleZero"
-        android:text="00"
+        android:id="@+id/btn_Equal"
+        android:text="="
         style="@style/NumberButtons"
         android:layout_column="2"
+        android:layout_row="4"
+        android:layout_columnWeight="1"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        />
+
+
+    <Button
+        android:id="@+id/btn_Plus"
+        android:text="+"
+        style="@style/FunctionalButtons"
+        android:layout_column="3"
         android:layout_row="4"
         android:layout_columnWeight="1"
         android:layout_marginTop="2dp"
