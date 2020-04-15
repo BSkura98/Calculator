@@ -22,5 +22,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(startIntent);
             }
         });
+
+        Button advancedCalculatorBtn = (Button)findViewById(R.id.advancedCalculatorBtn);
+        advancedCalculatorBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getApplicationContext(), AdvancedCalculatorActivity.class);
+                startActivity(startIntent);
+            }
+        });
     }
 }
