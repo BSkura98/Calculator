@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button simpleCalculatorBtn = (Button)findViewById(R.id.simpleCalculatorBtn);
+        Button simpleCalculatorBtn = findViewById(R.id.simpleCalculatorBtn);
         simpleCalculatorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -23,12 +23,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button advancedCalculatorBtn = (Button)findViewById(R.id.advancedCalculatorBtn);
+        Button advancedCalculatorBtn = findViewById(R.id.advancedCalculatorBtn);
         advancedCalculatorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent startIntent = new Intent(getApplicationContext(), AdvancedCalculatorActivity.class);
                 startActivity(startIntent);
+            }
+        });
+
+        Button aboutBtn = findViewById(R.id.aboutBtn);
+        aboutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getApplicationContext(), InformationActivity.class);
+                startActivity(startIntent);
+            }
+        });
+
+        Button exitBtn = findViewById(R.id.exitBtn);
+        exitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveTaskToBack(true);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(1);
             }
         });
     }

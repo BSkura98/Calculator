@@ -11,45 +11,54 @@ import android.widget.Toast;
 public class AdvancedCalculatorActivity extends AppCompatActivity {
     Button btnBksp, btnC, btnChangeSign, btnDivision, btnMultiply, btnMinus, btnPlus, btnEqual,btnDot,btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9;
     Button btnSin, btnCos, btnTan, btnLn, btnSqrt, btnSquare, btnPower, btnLog;
-    TextView userResult;
-    String operation="";
-    double numberInMemory = 0;
-    String decimalNumbers=".";//zmienić nazwę zmiennej; przypadek, gdy kropka jest ostatnim znakiem i chcę zrobić równość
-    boolean isDecimalNumber = false;
-    boolean secondNumberActive = false;
-    boolean newNumber = false;
+    TextView displayNumber;
+    String operation="";//przechowuje informację o rodzaju działania
+    double numberInMemory = 0;//liczba w pamięci
+    String fractionalPart =".";//część po przecinku liczby; string jest pomocniczy przy wykonywaniu działań na liczbach z cyframi po przecinku
+    boolean hasFractionalPart = false;//informacja o tym, czy aktualnie wprowadzana liczba ma cyfry po przecinku
+    boolean numberInMemoryActive = false;//informacja o tym, czy w pamięci jest zapisana jakaś liczba
+    boolean newNumber = false;//informacja o tym, czy aktualnie jest wprowadzana nowa liczba, czy cały czas ta sama (ważne przy wpisywaniu nowej liczby po wyświetleniu wyniku)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced_calculator);
-        userResult =findViewById(R.id.tv_userResult);
-        userResult.setText("0");
+        displayNumber =findViewById(R.id.display_number);
+        displayNumber.setText("0");
 
         btnBksp = findViewById(R.id.btn_Bksp);
         btnBksp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(userResult.getText().length()>1){
-                    if(!isDecimalNumber){
-                        userResult.setText(userResult.getText().toString().substring(0, userResult.getText().toString().length()-1));
+                if(displayNumber.getText().length()>1){
+                    if(!hasFractionalPart){
+                        displayNumber.setText(displayNumber.getText().toString().substring(0, displayNumber.getText().toString().length()-1));
                     }else{
-                        if(decimalNumbers.length()>1){
-                            decimalNumbers = decimalNumbers.substring(0, decimalNumbers.length()-1);
-                            userResult.setText(userResult.getText().toString().substring(0, userResult.getText().toString().length()-1));
+                        if(fractionalPart.length()>1){
+                            fractionalPart = fractionalPart.substring(0, fractionalPart.length()-1);
+                            displayNumber.setText(displayNumber.getText().toString().substring(0, displayNumber.getText().toString().length()-1));
                         }else{
-                            isDecimalNumber = false;
-                            userResult.setText(userResult.getText().toString().substring(0, userResult.getText().toString().length()-1));
+                            hasFractionalPart = false;
+                            displayNumber.setText(displayNumber.getText().toString().substring(0, displayNumber.getText().toString().length()-1));
                         }
                     }
                 }else{
-                    //userResult.setText("0");
                     deleteAllData();
                 }
             }
         });
 
         btnC = findViewById(R.id.btn_Clear);
+        btnC.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                displayNumber.setText("0");
+                fractionalPart=".";
+                hasFractionalPart = false;
+            }
+        });
+
+        btnC = findViewById(R.id.btn_AllClear);
         btnC.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -61,19 +70,18 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btnChangeSign.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
-                if(Double.parseDouble(userResult.getText().toString())==0.0)
+                if(Double.parseDouble(displayNumber.getText().toString())==0.0)
                     return;
-                //if(newNumber) return;
 
-                if(userResult.getText().toString().startsWith("-"))
-                    userResult.setText(userResult.getText().toString().substring(1));
+                if(displayNumber.getText().toString().startsWith("-"))
+                    displayNumber.setText(displayNumber.getText().toString().substring(1));
                 else
-                    userResult.setText("-".concat(userResult.getText().toString()));
+                    displayNumber.setText("-".concat(displayNumber.getText().toString()));
             }
         });
 
@@ -81,21 +89,17 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btnDivision.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
 
-                if(!secondNumberActive){
-                    secondNumberActive = true;
-                    numberInMemory = Double.parseDouble(userResult.getText().toString());
-                }else{
-                    calculateResult();//z tym calculateResult jest problem
-                }
+                numberInMemoryActive = true;
+                calculateResult();
                 operation = "/";
-                decimalNumbers=".";
-                isDecimalNumber=false;
+                fractionalPart =".";
+                hasFractionalPart =false;
                 newNumber = true;
             }
         });
@@ -104,21 +108,17 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btnMultiply.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
 
-                if(!secondNumberActive){
-                    secondNumberActive = true;
-                    numberInMemory = Double.parseDouble(userResult.getText().toString());
-                }else{
-                    calculateResult();//z tym calculateResult jest problem
-                }
+                numberInMemoryActive = true;
+                calculateResult();
                 operation = "*";
-                decimalNumbers=".";
-                isDecimalNumber=false;
+                fractionalPart =".";
+                hasFractionalPart =false;
                 newNumber = true;
             }
         });
@@ -127,21 +127,17 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btnMinus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
 
-                if(!secondNumberActive){
-                    secondNumberActive = true;
-                    numberInMemory = Double.parseDouble(userResult.getText().toString());
-                }else{
-                    calculateResult();//z tym calculateResult jest problem
-                }
+                numberInMemoryActive = true;
+                calculateResult();
                 operation = "-";
-                decimalNumbers=".";
-                isDecimalNumber=false;
+                fractionalPart =".";
+                hasFractionalPart =false;
                 newNumber = true;
             }
         });
@@ -150,21 +146,17 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
 
-                if(!secondNumberActive){
-                    secondNumberActive = true;
-                    numberInMemory = Double.parseDouble(userResult.getText().toString());
-                }else{
-                    calculateResult();//z tym calculateResult jest problem
-                }
+                numberInMemoryActive = true;
+                calculateResult();
                 operation = "+";
-                decimalNumbers=".";
-                isDecimalNumber=false;
+                fractionalPart =".";
+                hasFractionalPart =false;
                 newNumber = true;
             }
         });
@@ -173,32 +165,33 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btnEqual.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
 
                 calculateResult();
                 displayNumberInMemory();
-                newNumber = true;//?
-                secondNumberActive=false;
+                operation="";
+                newNumber = true;
+                numberInMemoryActive =false;
             }
         });
 
-        btnDot = findViewById(R.id.btn_Dot);//gdy nie ma żadnej liczby i wcisnę kropkę zrobić 0.
+        btnDot = findViewById(R.id.btn_Dot);
         btnDot.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
 
-                if(userResult.getText().length()<8&&!isDecimalNumber){//Długość musi być o jeden mniejsza
-                    userResult.append(".");
-                    isDecimalNumber = true;
+                if(displayNumber.getText().length()<8&&!hasFractionalPart&&!newNumber){
+                    displayNumber.append(".");
+                    hasFractionalPart = true;
                 }
             }
         });
@@ -210,14 +203,14 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
                 String number = "0";
                 if(newNumber == true){
                     newNumber = false;
-                    userResult.setText(number);
+                    displayNumber.setText(number);
                 }else{
-                    if(userResult.getText().length()<9&&!userResult.getText().toString().equals("0")){
-                        if(!isDecimalNumber){
-                            userResult.append(number);
+                    if(displayNumber.getText().length()<9&&!displayNumber.getText().toString().equals("0")){
+                        if(!hasFractionalPart){
+                            displayNumber.append(number);
                         }else{
-                            decimalNumbers = decimalNumbers.concat(number);
-                            userResult.append(number);
+                            fractionalPart = fractionalPart.concat(number);
+                            displayNumber.append(number);
                         }
                     }
                 }
@@ -228,22 +221,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String number = "1";
-                if(newNumber == true){
-                    newNumber = false;
-                    userResult.setText(number);
-                }else{
-                    if(userResult.getText().toString().equals("0")){
-                        userResult.setText(number);
-                    }else if(userResult.getText().length()<9){
-                        if(!isDecimalNumber){
-                            userResult.append(number);
-                        }else{
-                            decimalNumbers = decimalNumbers.concat(number);
-                            userResult.append(number);
-                        }
-                    }
-                }
+                displayNewDigit("1");
             }
         });
 
@@ -251,22 +229,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String number = "2";
-                if(newNumber == true){
-                    newNumber = false;
-                    userResult.setText(number);
-                }else{
-                    if(userResult.getText().toString().equals("0")){
-                        userResult.setText(number);
-                    }else if(userResult.getText().length()<9){
-                        if(!isDecimalNumber){
-                            userResult.append(number);
-                        }else{
-                            decimalNumbers = decimalNumbers.concat(number);
-                            userResult.append(number);
-                        }
-                    }
-                }
+                displayNewDigit("2");
             }
         });
 
@@ -274,22 +237,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String number = "3";
-                if(newNumber == true){
-                    newNumber = false;
-                    userResult.setText(number);
-                }else{
-                    if(userResult.getText().toString().equals("0")){
-                        userResult.setText(number);
-                    }else if(userResult.getText().length()<9){
-                        if(!isDecimalNumber){
-                            userResult.append(number);
-                        }else{
-                            decimalNumbers = decimalNumbers.concat(number);
-                            userResult.append(number);
-                        }
-                    }
-                }
+                displayNewDigit("3");
             }
         });
 
@@ -297,22 +245,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btn4.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String number = "4";
-                if(newNumber == true){
-                    newNumber = false;
-                    userResult.setText(number);
-                }else{
-                    if(userResult.getText().toString().equals("0")){
-                        userResult.setText(number);
-                    }else if(userResult.getText().length()<9){
-                        if(!isDecimalNumber){
-                            userResult.append(number);
-                        }else{
-                            decimalNumbers = decimalNumbers.concat(number);
-                            userResult.append(number);
-                        }
-                    }
-                }
+                displayNewDigit("4");
             }
         });
 
@@ -320,22 +253,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btn5.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String number = "5";
-                if(newNumber == true){
-                    newNumber = false;
-                    userResult.setText(number);
-                }else{
-                    if(userResult.getText().toString().equals("0")){
-                        userResult.setText(number);
-                    }else if(userResult.getText().length()<9){
-                        if(!isDecimalNumber){
-                            userResult.append(number);
-                        }else{
-                            decimalNumbers = decimalNumbers.concat(number);
-                            userResult.append(number);
-                        }
-                    }
-                }
+                displayNewDigit("5");
             }
         });
 
@@ -343,22 +261,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btn6.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String number = "6";
-                if(newNumber == true){
-                    newNumber = false;
-                    userResult.setText(number);
-                }else{
-                    if(userResult.getText().toString().equals("0")){
-                        userResult.setText(number);
-                    }else if(userResult.getText().length()<9){
-                        if(!isDecimalNumber){
-                            userResult.append(number);
-                        }else{
-                            decimalNumbers = decimalNumbers.concat(number);
-                            userResult.append(number);
-                        }
-                    }
-                }
+                displayNewDigit("6");
             }
         });
 
@@ -366,22 +269,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btn7.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String number = "7";
-                if(newNumber == true){
-                    newNumber = false;
-                    userResult.setText(number);
-                }else{
-                    if(userResult.getText().toString().equals("0")){
-                        userResult.setText(number);
-                    }else if(userResult.getText().length()<9){
-                        if(!isDecimalNumber){
-                            userResult.append(number);
-                        }else{
-                            decimalNumbers = decimalNumbers.concat(number);
-                            userResult.append(number);
-                        }
-                    }
-                }
+                displayNewDigit("7");
             }
         });
 
@@ -389,22 +277,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btn8.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String number = "8";
-                if(newNumber == true){
-                    newNumber = false;
-                    userResult.setText(number);
-                }else{
-                    if(userResult.getText().toString().equals("0")){
-                        userResult.setText(number);
-                    }else if(userResult.getText().length()<9){
-                        if(!isDecimalNumber){
-                            userResult.append(number);
-                        }else{
-                            decimalNumbers = decimalNumbers.concat(number);
-                            userResult.append(number);
-                        }
-                    }
-                }
+                displayNewDigit("8");
             }
         });
 
@@ -412,56 +285,33 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btn9.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String number = "9";
-                if(newNumber == true){
-                    newNumber = false;
-                    userResult.setText(number);
-                }else{
-                    if(userResult.getText().toString().equals("0")){
-                        userResult.setText(number);
-                    }else if(userResult.getText().length()<9){
-                        if(!isDecimalNumber){
-                            userResult.append(number);
-                        }else{
-                            decimalNumbers = decimalNumbers.concat(number);
-                            userResult.append(number);
-                        }
-                    }
-                }
+                displayNewDigit("9");
             }
         });
 
-        //Button btnSin, btnCos, btnTan, btnLn, btnSqrt, btnSquare, btnPower, btnLog;
         btnSin = findViewById(R.id.btn_Sin);
         btnSin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //1
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
+                operation = "";
+                numberInMemory = Math.sin(Double.parseDouble(displayNumber.getText().toString()));
 
-                operation = "";//"+"
-
-                //2
-                //numberInMemory = numberInMemory / Double.parseDouble(userResult.getText().toString());
-                numberInMemory = Math.sin(Double.parseDouble(userResult.getText().toString()));
-
-            //Sprawdzenie warunku, czy wynik jest w ogóle liczbą dziesiętną
             if(String.valueOf(numberInMemory).contains(".")){
-                decimalNumbers=String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
-                isDecimalNumber = true;
+                fractionalPart =String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
+                hasFractionalPart = true;
             }else{
-                decimalNumbers=".";
-                isDecimalNumber=false;
+                fractionalPart =".";
+                hasFractionalPart =false;
             }
 
-            //3
                 displayNumberInMemory();
-                newNumber = true;//?
-                secondNumberActive=false;//?
+                newNumber = true;
+                numberInMemoryActive =false;
             }
         });
 
@@ -469,103 +319,82 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btnCos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //1
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
+                operation = "";
+                numberInMemory = Math.cos(Double.parseDouble(displayNumber.getText().toString()));
 
-                operation = "";//"+"
-
-                //2
-                //numberInMemory = numberInMemory / Double.parseDouble(userResult.getText().toString());
-                numberInMemory = Math.cos(Double.parseDouble(userResult.getText().toString()));
-
-                //Sprawdzenie warunku, czy wynik jest w ogóle liczbą dziesiętną
                 if(String.valueOf(numberInMemory).contains(".")){
-                    decimalNumbers=String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
-                    isDecimalNumber = true;
+                    fractionalPart =String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
+                    hasFractionalPart = true;
                 }else{
-                    decimalNumbers=".";
-                    isDecimalNumber=false;
+                    fractionalPart =".";
+                    hasFractionalPart =false;
                 }
 
-                //3
                 displayNumberInMemory();
-                newNumber = true;//?
-                secondNumberActive=false;//?
+                newNumber = true;
+                numberInMemoryActive =false;
             }
         });
 
-        btnTan = findViewById(R.id.btn_tan);
+        btnTan = findViewById(R.id.btn_Tan);
         btnTan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //1
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
+                operation = "";
+                numberInMemory = Math.tan(Double.parseDouble(displayNumber.getText().toString()));
 
-                operation = "";//"+"
-
-                //2
-                //numberInMemory = numberInMemory / Double.parseDouble(userResult.getText().toString());
-                numberInMemory = Math.tan(Double.parseDouble(userResult.getText().toString()));
-
-                //Sprawdzenie warunku, czy wynik jest w ogóle liczbą dziesiętną
                 if(String.valueOf(numberInMemory).contains(".")){
-                    decimalNumbers=String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
-                    isDecimalNumber = true;
+                    fractionalPart =String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
+                    hasFractionalPart = true;
                 }else{
-                    decimalNumbers=".";
-                    isDecimalNumber=false;
+                    fractionalPart =".";
+                    hasFractionalPart =false;
                 }
 
-                //3
                 displayNumberInMemory();
-                newNumber = true;//?
-                secondNumberActive=false;//?
+                newNumber = true;
+                numberInMemoryActive =false;
             }
         });
 
-        btnLn = findViewById(R.id.btn_ln);
+        btnLn = findViewById(R.id.btn_Ln);
         btnLn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //1
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
-
-                operation = "";//"+"
-
-                //2
-                //numberInMemory = numberInMemory / Double.parseDouble(userResult.getText().toString());
-                numberInMemory = Math.log(Double.parseDouble(userResult.getText().toString()));
+                operation = "";
+                numberInMemory = Math.log(Double.parseDouble(displayNumber.getText().toString()));
                 if(String.valueOf(numberInMemory).equals("NaN")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
 
-                //Sprawdzenie warunku, czy wynik jest w ogóle liczbą dziesiętną
                 if(String.valueOf(numberInMemory).contains(".")){
-                    decimalNumbers=String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
-                    isDecimalNumber = true;
+                    fractionalPart =String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
+                    hasFractionalPart = true;
                 }else{
-                    decimalNumbers=".";
-                    isDecimalNumber=false;
+                    fractionalPart =".";
+                    hasFractionalPart =false;
                 }
 
-                //3
                 displayNumberInMemory();
-                newNumber = true;//?
-                secondNumberActive=false;//?
+                newNumber = true;
+                numberInMemoryActive =false;
             }
         });
 
@@ -573,37 +402,31 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btnSqrt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //1
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
+                operation = "";
 
-                operation = "";//"+"
-
-                //2
-                //numberInMemory = numberInMemory / Double.parseDouble(userResult.getText().toString());
-                if(Double.parseDouble(userResult.getText().toString())<0){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(Double.parseDouble(displayNumber.getText().toString())<0){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
-                numberInMemory = Math.sqrt(Double.parseDouble(userResult.getText().toString()));
+                numberInMemory = Math.sqrt(Double.parseDouble(displayNumber.getText().toString()));
 
-                //Sprawdzenie warunku, czy wynik jest w ogóle liczbą dziesiętną
                 if(String.valueOf(numberInMemory).contains(".")){
-                    decimalNumbers=String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
-                    isDecimalNumber = true;
+                    fractionalPart =String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
+                    hasFractionalPart = true;
                 }else{
-                    decimalNumbers=".";
-                    isDecimalNumber=false;
+                    fractionalPart =".";
+                    hasFractionalPart =false;
                 }
 
-                //3
                 displayNumberInMemory();
-                newNumber = true;//?
-                secondNumberActive=false;//?
+                newNumber = true;
+                numberInMemoryActive =false;
             }
         });
 
@@ -611,37 +434,25 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btnSquare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //1
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
+                operation = "";
+                numberInMemory = Double.parseDouble(displayNumber.getText().toString())*Double.parseDouble(displayNumber.getText().toString());
 
-                operation = "";//"+"
-
-                //2
-                //numberInMemory = numberInMemory / Double.parseDouble(userResult.getText().toString());
-                if(Double.parseDouble(userResult.getText().toString())<0){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
-                    deleteAllData();
-                    return;
-                }
-                numberInMemory = Double.parseDouble(userResult.getText().toString())*Double.parseDouble(userResult.getText().toString());
-
-                //Sprawdzenie warunku, czy wynik jest w ogóle liczbą dziesiętną
                 if(String.valueOf(numberInMemory).contains(".")){
-                    decimalNumbers=String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
-                    isDecimalNumber = true;
+                    fractionalPart =String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
+                    hasFractionalPart = true;
                 }else{
-                    decimalNumbers=".";
-                    isDecimalNumber=false;
+                    fractionalPart =".";
+                    hasFractionalPart =false;
                 }
 
-                //3
                 displayNumberInMemory();
-                newNumber = true;//?
-                secondNumberActive=false;//?
+                newNumber = true;
+                numberInMemoryActive =false;
             }
         });
 
@@ -649,21 +460,17 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btnPower.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
 
-                if(!secondNumberActive){
-                    secondNumberActive = true;
-                    numberInMemory = Double.parseDouble(userResult.getText().toString());
-                }else{
-                    calculateResult();//z tym calculateResult jest problem
-                }
+                numberInMemoryActive = true;
+                calculateResult();
                 operation = "^";
-                decimalNumbers=".";
-                isDecimalNumber=false;
+                fractionalPart =".";
+                hasFractionalPart =false;
                 newNumber = true;
             }
         });
@@ -672,99 +479,129 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //1
-                if(userResult.getText().toString().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                if(displayNumber.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
+                operation = "";
+                numberInMemory = Math.log10(Double.parseDouble(displayNumber.getText().toString()));
 
-                operation = "";//"+"
-
-                //2
-                //numberInMemory = numberInMemory / Double.parseDouble(userResult.getText().toString());
-                numberInMemory = Math.log10(Double.parseDouble(userResult.getText().toString()));
                 if(String.valueOf(numberInMemory).equals("NaN")){
-                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Error: Invalid number", Toast.LENGTH_SHORT).show();
                     deleteAllData();
                     return;
                 }
 
-                //Sprawdzenie warunku, czy wynik jest w ogóle liczbą dziesiętną
                 if(String.valueOf(numberInMemory).contains(".")){
-                    decimalNumbers=String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
-                    isDecimalNumber = true;
+                    fractionalPart =String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
+                    hasFractionalPart = true;
                 }else{
-                    decimalNumbers=".";
-                    isDecimalNumber=false;
+                    fractionalPart =".";
+                    hasFractionalPart =false;
                 }
 
-                //3
                 displayNumberInMemory();
-                newNumber = true;//?
-                secondNumberActive=false;//?
+                newNumber = true;
+                numberInMemoryActive =false;
             }
         });
+
+        if(savedInstanceState != null){
+            String numberOnScreen = savedInstanceState.getString("numberOnScreen");
+            displayNumber.setText(numberOnScreen);
+            operation = savedInstanceState.getString("operation");
+            numberInMemory = savedInstanceState.getDouble("numberInMemory");
+            fractionalPart = savedInstanceState.getString("decimalNumbers");
+            hasFractionalPart = savedInstanceState.getBoolean("isDecimalNumber");
+            numberInMemoryActive = savedInstanceState.getBoolean("secondNumberActive");
+            newNumber = savedInstanceState.getBoolean("newNumber");
+        }
     }
 
     public void calculateResult(){
-        if(secondNumberActive){
+        if(operation.isEmpty()){
+            numberInMemory = Double.parseDouble(displayNumber.getText().toString());
+            hasFractionalPart = false;//?
+            fractionalPart = ".";
+            return;
+        }
+
+        if(numberInMemoryActive){
             String result=null;
             if(operation.equals("+")){
-                numberInMemory = numberInMemory + Double.parseDouble(userResult.getText().toString());
+                numberInMemory = numberInMemory + Double.parseDouble(displayNumber.getText().toString());
                 result = String.valueOf(numberInMemory);
                 System.out.println(numberInMemory);
-                //userResult.setText(result);
             }else if(operation.equals("-")){
-                numberInMemory = numberInMemory - Double.parseDouble(userResult.getText().toString());
+                numberInMemory = numberInMemory - Double.parseDouble(displayNumber.getText().toString());
                 result = String.valueOf(numberInMemory);
-                //userResult.setText(result);
             }else if(operation.equals("*")){
-                numberInMemory = numberInMemory * Double.parseDouble(userResult.getText().toString());
+                numberInMemory = numberInMemory * Double.parseDouble(displayNumber.getText().toString());
                 result = String.valueOf(numberInMemory);
-                //userResult.setText(result);
             }else if(operation.equals("/")){
-                numberInMemory = numberInMemory / Double.parseDouble(userResult.getText().toString());
+                numberInMemory = numberInMemory / Double.parseDouble(displayNumber.getText().toString());
                 result = String.valueOf(numberInMemory);
-                //userResult.setText(result);
             }else if(operation.equals("^")){
                 double number = numberInMemory;
-                for(int i=0;i<(Double.parseDouble(userResult.getText().toString())-1);i++){
+                for(int i = 0; i<(Double.parseDouble(displayNumber.getText().toString())-1); i++){
                     numberInMemory = numberInMemory*number;
                 }
-                //numberInMemory = numberInMemory / Double.parseDouble(userResult.getText().toString());
                 result = String.valueOf(numberInMemory);
-                //userResult.setText(result);
             }
 
-            //Sprawdzenie warunku, czy wynik jest w ogóle liczbą dziesiętną
             if(result.contains(".")){
-                decimalNumbers=result.substring(result.indexOf("."));
-                isDecimalNumber = true;
+                fractionalPart =result.substring(result.indexOf("."));
+                hasFractionalPart = true;
             }else{
-                decimalNumbers=".";
-                isDecimalNumber=false;
+                fractionalPart =".";
+                hasFractionalPart =false;
             }
         }
     }
 
     public void displayNumberInMemory(){
-        userResult.setText(String.valueOf(numberInMemory));//substring na wypadek wyniku np. 1.40000000000000001; złe rozwiązanie, co jak dam 999999999 * 2?
-        /*Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
-        if(String.valueOf(numberInMemory).indexOf(".")>=9){
-            deleteAllData();
-            Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
-        }*/
-        //zrobić coś z wy
+        displayNumber.setText(String.valueOf(numberInMemory));
     }
 
     public void deleteAllData(){
-        userResult.setText("0");
+        displayNumber.setText("0");
         operation="";
         numberInMemory=0;
-        decimalNumbers=".";
-        isDecimalNumber=false;
-        secondNumberActive=false;
+        fractionalPart =".";
+        hasFractionalPart =false;
+        numberInMemoryActive =false;
         newNumber=false;
+    }
+
+    public void displayNewDigit(String number){
+        if(newNumber == true){
+            newNumber = false;
+            displayNumber.setText(number);
+        }else{
+            if(displayNumber.getText().toString().equals("0")){
+                displayNumber.setText(number);
+            }else if(displayNumber.getText().length()<9){
+                if(!hasFractionalPart){
+                    displayNumber.append(number);
+                }else{
+                    fractionalPart = fractionalPart.concat(number);
+                    displayNumber.append(number);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("operation", operation);
+        outState.putDouble("numberInMemory", numberInMemory);
+        outState.putString("decimalNumbers", fractionalPart);
+        outState.putBoolean("isDecimalNumber", hasFractionalPart);
+        outState.putBoolean("secondNumberActive", numberInMemoryActive);
+        outState.putBoolean("newNumber", newNumber);
+        outState.putString("numberOnScreen", displayNumber.getText().toString());
     }
 }

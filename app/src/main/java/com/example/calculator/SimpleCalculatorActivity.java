@@ -8,8 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.math.BigDecimal;
-
 public class SimpleCalculatorActivity extends AppCompatActivity {
     Button btnBksp, btnC, btnChangeSign, btnDivision, btnMultiply, btnMinus, btnPlus, btnEqual,btnDot,btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9;
     TextView userResult;
@@ -25,7 +23,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_calculator);
 
-        userResult =findViewById(R.id.tv_userResult);
+        userResult =findViewById(R.id.display_number);
         userResult.setText("0");
 
         btnBksp = findViewById(R.id.btn_Bksp);
@@ -432,6 +430,17 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if(savedInstanceState != null){
+            String numberOnScreen = savedInstanceState.getString("numberOnScreen");
+            userResult.setText(numberOnScreen);
+            operation = savedInstanceState.getString("operation");
+            numberInMemory = savedInstanceState.getDouble("numberInMemory");
+            decimalNumbers = savedInstanceState.getString("decimalNumbers");
+            isDecimalNumber = savedInstanceState.getBoolean("isDecimalNumber");
+            secondNumberActive = savedInstanceState.getBoolean("secondNumberActive");
+            newNumber = savedInstanceState.getBoolean("newNumber");
+        }
     }
 
     public void calculateResult(){
@@ -485,5 +494,18 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
         isDecimalNumber=false;
         secondNumberActive=false;
         newNumber=false;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("operation", operation);
+        outState.putDouble("numberInMemory", numberInMemory);
+        outState.putString("decimalNumbers", decimalNumbers);
+        outState.putBoolean("isDecimalNumber", isDecimalNumber);
+        outState.putBoolean("secondNumberActive", secondNumberActive);
+        outState.putBoolean("newNumber", newNumber);
+        outState.putString("numberOnScreen", userResult.getText().toString());
     }
 }

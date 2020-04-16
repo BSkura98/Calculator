@@ -1,29 +1,309 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <include
-        layout="@layout/calc_result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <TableRow
+        android:id="@+id/tableRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="2dp"
-        android:gravity="bottom">
+        <Button
+            android:id="@+id/btn_ChangeSign"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="±" />
 
-        <include
-            layout="@layout/adv_cal_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_Zero"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/btn_Dot"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="." />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_Equal"
+            style="@style/EqualButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="=" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tableRow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_One"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/btn_Two"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/btn_Three"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/btn_Plus"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tableRow2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_Four"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/btn_Five"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/btn_Six"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="6" />
+
+        <Button
+            android:id="@+id/btn_Minus"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tableRow3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_Seven"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="7" />
+
+        <Button
+            android:id="@+id/btn_Eight"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="8" />
+
+        <Button
+            android:id="@+id/btn_Nine"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="9" />
+
+        <Button
+            android:id="@+id/btn_Multiply"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="*" />
+    </TableRow>
+
+    <TextView
+        android:id="@+id/display_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="0"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableRow
+        android:id="@+id/tableRow5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tableRow4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_Square"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="x^2" />
+
+        <Button
+            android:id="@+id/btn_Power"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="x^y" />
+
+        <Button
+            android:id="@+id/btn_Log"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="log" />
+
+        <Button
+            android:id="@+id/btn_Division"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="/" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tableRow5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_Cos"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="cos" />
+
+        <Button
+            android:id="@+id/btn_Tan"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="tan" />
+
+        <Button
+            android:id="@+id/btn_Ln"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ln" />
+
+        <Button
+            android:id="@+id/btn_Sqrt"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="sqrt" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tableRow6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_Bksp"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Bksp" />
+
+        <Button
+            android:id="@+id/btn_Clear"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="C" />
+
+        <Button
+            android:id="@+id/btn_AllClear"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="AC" />
+
+        <Button
+            android:id="@+id/btn_Sin"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="sin" />
+
+    </TableRow>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

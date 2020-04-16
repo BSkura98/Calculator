@@ -35,7 +35,7 @@
         />
 
     <Button
-        android:id="@+id/btn_ChangeSign"
+        android:id="@+id/btn_Division"
         android:text="±"
         style="@style/FunctionalButtons"
         android:layout_column="3"
@@ -136,7 +136,7 @@
         />
 
     <Button
-        android:id="@+id/btn_Multiply"
+        android:id="@+id/btn_Division"
         android:text="*"
         style="@style/FunctionalButtons"
         android:layout_column="3"

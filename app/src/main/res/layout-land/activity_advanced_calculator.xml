@@ -16,6 +16,22 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
+            android:id="@+id/btn_Square"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="x^2" />
+
+        <Button
+            android:id="@+id/btn_Power"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="x^y" />
+
+        <Button
             android:id="@+id/btn_ChangeSign"
             style="@style/FunctionalButtons"
             android:layout_width="0dp"
@@ -46,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="=" />
+
     </TableRow>
 
     <TableRow
@@ -55,6 +72,22 @@
         app:layout_constraintBottom_toTopOf="@+id/tableRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_Sqrt"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="sqrt" />
+
+        <Button
+            android:id="@+id/btn_Log"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="log" />
 
         <Button
             android:id="@+id/btn_One"
@@ -87,6 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="+" />
+
     </TableRow>
 
     <TableRow
@@ -96,6 +130,22 @@
         app:layout_constraintBottom_toTopOf="@+id/tableRow2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_Tan"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="tan" />
+
+        <Button
+            android:id="@+id/btn_Ln"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ln" />
 
         <Button
             android:id="@+id/btn_Four"
@@ -137,6 +187,22 @@
         app:layout_constraintBottom_toTopOf="@+id/tableRow3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_Sin"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="sin" />
+
+        <Button
+            android:id="@+id/btn_Cos"
+            style="@style/FunctionalButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="cos" />
 
         <Button
             android:id="@+id/btn_Seven"
@@ -183,6 +249,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableRow
+        android:id="@+id/tableRow7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/tableRow4"

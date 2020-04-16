@@ -7,8 +7,9 @@
 
     <Button
         android:id="@+id/exitBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Exit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,7 +17,7 @@
 
     <Button
         android:id="@+id/simpleCalculatorBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Simple"
@@ -26,8 +27,9 @@
 
     <Button
         android:id="@+id/advancedCalculatorBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Advanced"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textSize="30sp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,8 +49,9 @@
 
     <Button
         android:id="@+id/aboutBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="About"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

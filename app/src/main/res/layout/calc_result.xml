@@ -8,7 +8,7 @@
     >
 
     <TextView
-        android:id="@+id/tv_userResult"
+        android:id="@+id/display_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="textEnd"

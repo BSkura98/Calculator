@@ -35,7 +35,7 @@
         />
 
     <Button
-        android:id="@+id/btn_ChangeSign"
+        android:id="@+id/btn_Division"
         android:text="±"
         style="@style/FunctionalButtons"
         android:layout_column="3"
@@ -74,7 +74,7 @@
         />
 
     <Button
-        android:id="@+id/btn_tan"
+        android:id="@+id/btn_Tan"
         android:text="tan"
         style="@style/FunctionalButtons"
         android:layout_column="2"
@@ -86,7 +86,7 @@
         />
 
     <Button
-        android:id="@+id/btn_ln"
+        android:id="@+id/btn_Ln"
         android:text="ln"
         style="@style/FunctionalButtons"
         android:layout_column="3"
@@ -240,7 +240,7 @@
         />
 
     <Button
-        android:id="@+id/btn_Multiply"
+        android:id="@+id/btn_Division"
         android:text="*"
         style="@style/FunctionalButtons"
         android:layout_column="3"
