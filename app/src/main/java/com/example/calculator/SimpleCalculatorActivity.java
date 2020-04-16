@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
+
 public class SimpleCalculatorActivity extends AppCompatActivity {
     Button btnBksp, btnC, btnChangeSign, btnDivision, btnMultiply, btnMinus, btnPlus, btnEqual,btnDot,btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9;
     TextView userResult;
@@ -60,7 +62,16 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
         btnChangeSign = findViewById(R.id.btn_ChangeSign);
         btnChangeSign.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {//To jest źle, nie chciało mi się już robić
+            public void onClick(View v) {
+                if(userResult.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                    deleteAllData();
+                    return;
+                }
+                if(Double.parseDouble(userResult.getText().toString())==0.0)
+                    return;
+                //if(newNumber) return;
+
                 if(userResult.getText().toString().startsWith("-"))
                     userResult.setText(userResult.getText().toString().substring(1));
                 else
@@ -72,6 +83,12 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
         btnDivision.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(userResult.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                    deleteAllData();
+                    return;
+                }
+
                 if(!secondNumberActive){
                     secondNumberActive = true;
                     numberInMemory = Double.parseDouble(userResult.getText().toString());
@@ -89,6 +106,12 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
         btnMultiply.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(userResult.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                    deleteAllData();
+                    return;
+                }
+
                 if(!secondNumberActive){
                     secondNumberActive = true;
                     numberInMemory = Double.parseDouble(userResult.getText().toString());
@@ -106,6 +129,12 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
         btnMinus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(userResult.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                    deleteAllData();
+                    return;
+                }
+
                 if(!secondNumberActive){
                     secondNumberActive = true;
                     numberInMemory = Double.parseDouble(userResult.getText().toString());
@@ -123,6 +152,12 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(userResult.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                    deleteAllData();
+                    return;
+                }
+
                 if(!secondNumberActive){
                     secondNumberActive = true;
                     numberInMemory = Double.parseDouble(userResult.getText().toString());
@@ -140,6 +175,12 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
         btnEqual.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(userResult.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                    deleteAllData();
+                    return;
+                }
+
                 calculateResult();
                 displayNumberInMemory();
                 newNumber = true;//?
@@ -151,6 +192,12 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
         btnDot.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(userResult.getText().toString().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show();
+                    deleteAllData();
+                    return;
+                }
+
                 if(userResult.getText().length()<8&&!isDecimalNumber){//Długość musi być o jeden mniejsza
                     userResult.append(".");
                     isDecimalNumber = true;
