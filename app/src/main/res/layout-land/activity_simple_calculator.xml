@@ -22,6 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="±" />
 
         <Button
@@ -30,6 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="0" />
 
         <Button
@@ -38,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="." />
 
         <Button
@@ -46,6 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="=" />
     </TableRow>
 
@@ -63,6 +67,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="1" />
 
         <Button
@@ -71,6 +76,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="2" />
 
         <Button
@@ -79,6 +85,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="3" />
 
         <Button
@@ -87,6 +94,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="+" />
     </TableRow>
 
@@ -104,6 +112,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="4" />
 
         <Button
@@ -112,6 +121,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="5" />
 
         <Button
@@ -120,6 +130,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="6" />
 
         <Button
@@ -128,6 +139,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="-" />
     </TableRow>
 
@@ -145,6 +157,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="7" />
 
         <Button
@@ -153,6 +166,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="8" />
 
         <Button
@@ -161,6 +175,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="9" />
 
         <Button
@@ -169,6 +184,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="*" />
     </TableRow>
 
@@ -196,6 +212,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="Bksp" />
 
         <Button
@@ -204,6 +221,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="C" />
 
         <Button
@@ -212,6 +230,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="AC" />
 
         <Button
@@ -220,6 +239,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="50dp"
             android:text="/" />
 
     </TableRow>
