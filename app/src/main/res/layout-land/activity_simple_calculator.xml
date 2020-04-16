@@ -17,6 +17,14 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
+            android:id="@+id/btn_ChangeSign"
+            style="@style/NumberButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="±" />
+
+        <Button
             android:id="@+id/btn_Zero"
             style="@style/NumberButtons"
             android:layout_width="0dp"
@@ -39,14 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="=" />
-
-        <Button
-            android:id="@+id/btn_Plus"
-            style="@style/FunctionalButtons"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="+" />
     </TableRow>
 
     <TableRow
@@ -82,12 +82,12 @@
             android:text="3" />
 
         <Button
-            android:id="@+id/btn_Minus"
+            android:id="@+id/btn_Plus"
             style="@style/FunctionalButtons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="-" />
+            android:text="+" />
     </TableRow>
 
     <TableRow
@@ -123,12 +123,12 @@
             android:text="6" />
 
         <Button
-            android:id="@+id/btn_Multiply"
+            android:id="@+id/btn_Minus"
             style="@style/FunctionalButtons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="*" />
+            android:text="-" />
     </TableRow>
 
     <TableRow
@@ -164,12 +164,12 @@
             android:text="9" />
 
         <Button
-            android:id="@+id/btn_Division"
+            android:id="@+id/btn_Multiply"
             style="@style/FunctionalButtons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="/" />
+            android:text="*" />
     </TableRow>
 
     <TextView
@@ -215,12 +215,13 @@
             android:text="AC" />
 
         <Button
-            android:id="@+id/btn_ChangeSign"
+            android:id="@+id/btn_Division"
             style="@style/FunctionalButtons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="±" />
+            android:text="/" />
+
     </TableRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

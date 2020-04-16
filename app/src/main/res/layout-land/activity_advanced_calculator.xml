@@ -33,7 +33,7 @@
 
         <Button
             android:id="@+id/btn_ChangeSign"
-            style="@style/FunctionalButtons"
+            style="@style/NumberButtons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

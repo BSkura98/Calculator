@@ -8,8 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
+
 public class AdvancedCalculatorActivity extends AppCompatActivity {
-    Button btnBksp, btnC, btnChangeSign, btnDivision, btnMultiply, btnMinus, btnPlus, btnEqual,btnDot,btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9;
+    Button btnBksp, btnC, btnAC, btnChangeSign, btnDivision, btnMultiply, btnMinus, btnPlus, btnEqual,btnDot,btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9;
     Button btnSin, btnCos, btnTan, btnLn, btnSqrt, btnSquare, btnPower, btnLog;
     TextView displayNumber;
     String operation="";//przechowuje informację o rodzaju działania
@@ -58,8 +60,8 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
             }
         });
 
-        btnC = findViewById(R.id.btn_AllClear);
-        btnC.setOnClickListener(new View.OnClickListener(){
+        btnAC = findViewById(R.id.btn_AllClear);
+        btnAC.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 deleteAllData();
@@ -522,36 +524,29 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
     public void calculateResult(){
         if(operation.isEmpty()){
             numberInMemory = Double.parseDouble(displayNumber.getText().toString());
-            hasFractionalPart = false;//?
+            hasFractionalPart = false;
             fractionalPart = ".";
             return;
         }
 
-        if(numberInMemoryActive){
-            String result=null;
+        if(numberInMemoryActive&&!newNumber){
             if(operation.equals("+")){
                 numberInMemory = numberInMemory + Double.parseDouble(displayNumber.getText().toString());
-                result = String.valueOf(numberInMemory);
-                System.out.println(numberInMemory);
             }else if(operation.equals("-")){
                 numberInMemory = numberInMemory - Double.parseDouble(displayNumber.getText().toString());
-                result = String.valueOf(numberInMemory);
             }else if(operation.equals("*")){
                 numberInMemory = numberInMemory * Double.parseDouble(displayNumber.getText().toString());
-                result = String.valueOf(numberInMemory);
             }else if(operation.equals("/")){
                 numberInMemory = numberInMemory / Double.parseDouble(displayNumber.getText().toString());
-                result = String.valueOf(numberInMemory);
             }else if(operation.equals("^")){
                 double number = numberInMemory;
                 for(int i = 0; i<(Double.parseDouble(displayNumber.getText().toString())-1); i++){
                     numberInMemory = numberInMemory*number;
                 }
-                result = String.valueOf(numberInMemory);
             }
 
-            if(result.contains(".")){
-                fractionalPart =result.substring(result.indexOf("."));
+            if(String.valueOf(numberInMemory).contains(".")){
+                fractionalPart =String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
                 hasFractionalPart = true;
             }else{
                 fractionalPart =".";
@@ -561,7 +556,25 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
     }
 
     public void displayNumberInMemory(){
+        String result = String.valueOf(numberInMemory);
         displayNumber.setText(String.valueOf(numberInMemory));
+        if(result.contains("Infinity")||result.contains("E")){
+            Toast.makeText(getApplicationContext(),"Error: Result is too large", Toast.LENGTH_SHORT).show();
+            deleteAllData();
+        }else if(result.length()>10){
+            if(result.contains(".")&&!(result.substring(0, result.indexOf(".")).length()>10)){
+                if(result.endsWith(".")){
+                    displayNumber.setText(result.substring(0, result.indexOf(".")));
+                }else{
+                    displayNumber.setText(result.substring(0, 10));
+                }
+            }else{
+                Toast.makeText(getApplicationContext(),"Error: Result is too long number", Toast.LENGTH_SHORT).show();
+                deleteAllData();
+            }
+        }else{
+            displayNumber.setText(String.valueOf(numberInMemory));
+        }
     }
 
     public void deleteAllData(){
