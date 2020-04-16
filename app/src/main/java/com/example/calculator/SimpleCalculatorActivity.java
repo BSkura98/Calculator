@@ -200,7 +200,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String number = "0";
-                if(newNumber == true){
+                if(newNumber){
                     newNumber = false;
                     displayNumber.setText(number);
                 }else{
@@ -367,7 +367,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity {
     }
 
     public void displayNewDigit(String number){
-        if(newNumber == true){
+        if(newNumber){
             newNumber = false;
             displayNumber.setText(number);
         }else{

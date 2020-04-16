@@ -205,6 +205,8 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
                 String number = "0";
                 if(newNumber == true){
                     newNumber = false;
+                    fractionalPart =".";
+                    hasFractionalPart =false;
                     displayNumber.setText(number);
                 }else{
                     if(displayNumber.getText().length()<9&&!displayNumber.getText().toString().equals("0")){
@@ -302,15 +304,13 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
                 }
                 operation = "";
                 numberInMemory = Math.sin(Double.parseDouble(displayNumber.getText().toString()));
-
-            if(String.valueOf(numberInMemory).contains(".")){
-                fractionalPart =String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
-                hasFractionalPart = true;
-            }else{
-                fractionalPart =".";
-                hasFractionalPart =false;
-            }
-
+                if(String.valueOf(numberInMemory).contains(".")){
+                    fractionalPart =String.valueOf(numberInMemory).substring(String.valueOf(numberInMemory).indexOf("."));
+                    hasFractionalPart = true;
+                }else{
+                    fractionalPart =".";
+                    hasFractionalPart =false;
+                }
                 displayNumberInMemory();
                 newNumber = true;
                 numberInMemoryActive =false;
@@ -588,8 +588,10 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
     }
 
     public void displayNewDigit(String number){
-        if(newNumber == true){
+        if(newNumber){
             newNumber = false;
+            fractionalPart =".";
+            hasFractionalPart =false;
             displayNumber.setText(number);
         }else{
             if(displayNumber.getText().toString().equals("0")){
