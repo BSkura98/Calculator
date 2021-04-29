@@ -2,9 +2,7 @@
 This application includes a simple and advanced calculator.
 
 ## Screenshots
-![Menu](./img/menu.jpg)
-![Simple calculator](./img/simple_calculator.jpg)
-![Advanced calculator](./img/advanced_calculator.jpg)
+<img src="./img/menu.jpg" width="200"> <img src="./img/simple_calculator.jpg" width="200"> <img src="./img/advanced_calculator.jpg" width="200">
 
 ## Technologies
 * Java
